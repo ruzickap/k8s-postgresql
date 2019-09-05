@@ -261,6 +261,7 @@ cd terraform
 ./terraform-azure.sh init
 ./terraform-azure.sh plan
 ./terraform-azure.sh apply -auto-approve
+cd ..
 ```
 
 Output:
@@ -271,7 +272,7 @@ Apply complete! Resources: 18 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-kubeconfig_export_command = 'export KUBECONFIG=$PWD/azure/../kubeconfig_pruzicka-k8s-myexample-dev'
+kubeconfig_export_command = 'export KUBECONFIG=$PWD/terraform/kubeconfig_pruzicka-k8s-myexample-dev'
 ```
 
 Check if the new Kubernetes cluster is available:
