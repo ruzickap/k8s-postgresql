@@ -158,7 +158,7 @@ resource "helm_release" "istio" {
 }
 
 data "template_file" "istio-gateway" {
-  template = file("../files/istio-gateway.yaml.tmpl")
+  template = file("${path.module}/files/istio-gateway.yaml.tmpl")
   vars = {
     letsencrypt_environment = var.letsencrypt_environment
   }
@@ -169,16 +169,15 @@ resource "null_resource" "istio-gateway" {
 
   triggers = {
     template_file_istio-gateway_sha1 = "${sha1("${data.template_file.istio-gateway.rendered}")}"
-    kubeconfig_rendered              = local_file.file.filename
   }
 
   provisioner "local-exec" {
-    command = "kubectl apply --kubeconfig=${local_file.file.filename} -f -<<EOF\n${data.template_file.istio-gateway.rendered}\nEOF"
+    command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-gateway.rendered}\nEOF"
   }
 }
 
 data "template_file" "istio-services" {
-  template = file("../files/istio-services.yaml.tmpl")
+  template = file("${path.module}/files/istio-services.yaml.tmpl")
   vars = {
     dnsName                 = var.dns_zone_name
     letsencrypt_environment = var.letsencrypt_environment
@@ -190,10 +189,9 @@ resource "null_resource" "istio-services" {
 
   triggers = {
     template_file_istio-services_sha1 = "${sha1("${data.template_file.istio-services.rendered}")}"
-    kubeconfig_rendered               = local_file.file.filename
   }
 
   provisioner "local-exec" {
-    command = "kubectl apply --kubeconfig=${local_file.file.filename} -f -<<EOF\n${data.template_file.istio-services.rendered}\nEOF"
+    command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-services.rendered}\nEOF"
   }
 }

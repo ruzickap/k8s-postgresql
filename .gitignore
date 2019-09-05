@@ -8,5 +8,7 @@ terraform/kubeconfig_*
 README.sh
 # ignore builded pages by Vuepress
 docs/.vuepress/dist
+# ignore tmp directory
+tmp
 # Node modules
 node_modules

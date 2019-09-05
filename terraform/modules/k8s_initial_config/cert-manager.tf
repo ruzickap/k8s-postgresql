@@ -15,11 +15,10 @@ resource "null_resource" "cert-manager" {
   depends_on = [kubernetes_namespace.namespace_cert-manager]
   triggers = {
     template_file_cert-manager_application_sha1 = "${sha1("${data.http.crd_cert-manager.body}")}"
-    kubeconfig_rendered                         = local_file.file.filename
   }
 
   provisioner "local-exec" {
-    command = "kubectl apply --kubeconfig=${local_file.file.filename} -f ${data.http.crd_cert-manager.url}"
+    command = "kubectl apply --kubeconfig=${var.kubeconfig} -f ${data.http.crd_cert-manager.url}"
   }
 }
 
@@ -53,7 +52,7 @@ resource "kubernetes_secret" "example" {
 }
 
 data "template_file" "cert-manager-clusterissuer" {
-  template = file("../files/cert-manager-${var.cloud_platform}-clusterissuer.yaml.tmpl")
+  template = file("${path.module}/files/cert-manager-${var.cloud_platform}-clusterissuer.yaml.tmpl")
   vars = {
     clientID          = var.client_id
     hostedZoneName    = var.dns_zone_name
@@ -68,16 +67,15 @@ resource "null_resource" "cert-manager-clusterissuer" {
 
   triggers = {
     template_file_cert-manager-clusterissuer_sha1 = "${sha1("${data.template_file.cert-manager-clusterissuer.rendered}")}"
-    kubeconfig_rendered                           = local_file.file.filename
   }
 
   provisioner "local-exec" {
-    command = "kubectl apply --kubeconfig=${local_file.file.filename} -f -<<EOF\n${data.template_file.cert-manager-clusterissuer.rendered}\nEOF"
+    command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.cert-manager-clusterissuer.rendered}\nEOF"
   }
 }
 
 data "template_file" "cert-manager-certificate" {
-  template = file("../files/cert-manager-${var.cloud_platform}-certificate.yaml.tmpl")
+  template = file("${path.module}/files/cert-manager-${var.cloud_platform}-certificate.yaml.tmpl")
   vars = {
     dnsName                 = var.dns_zone_name
     letsencrypt_environment = var.letsencrypt_environment
@@ -89,10 +87,9 @@ resource "null_resource" "cert-manager-certificate" {
 
   triggers = {
     template_file_cert-manager-certificate_sha1 = "${sha1("${data.template_file.cert-manager-certificate.rendered}")}"
-    kubeconfig_rendered                         = local_file.file.filename
   }
 
   provisioner "local-exec" {
-    command = "kubectl apply --kubeconfig=${local_file.file.filename} -f -<<EOF\n${data.template_file.cert-manager-certificate.rendered}\nEOF"
+    command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.cert-manager-certificate.rendered}\nEOF"
   }
 }
