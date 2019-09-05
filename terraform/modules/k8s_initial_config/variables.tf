@@ -11,7 +11,7 @@ variable "dns_zone_name" {
 }
 
 variable "helm_cert-manager_version" {
-  default = "v0.9.1"
+  default = "v0.10.0"
 }
 
 variable "helm_external-dns_version" {
