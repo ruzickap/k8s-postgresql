@@ -1,6 +1,6 @@
 {
   "name": "k8s-postgresql",
-  "version": "0.3.0",
+  "version": "0.0.1",
   "description": "PostgreSQL and Kubernetes",
   "author": "Petr Ruzicka <petr.ruzicka@gmail.com>",
   "license": "Apache License 2.0",

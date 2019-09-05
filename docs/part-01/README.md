@@ -31,7 +31,7 @@ Install necessary software:
 ```bash
 if [ -x /usr/bin/apt ]; then
   apt update -qq
-  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl gettext-base git jq openssh-client sudo wget > /dev/null
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl gettext-base git jq openssh-client sudo unzip wget > /dev/null
 fi
 ```
 
@@ -50,7 +50,19 @@ Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 ```
 
+Install [Terraform](https://www.terraform.io/):
+
+```bash
+curl -sL https://releases.hashicorp.com/terraform/0.12.8/terraform_0.12.8_linux_amd64.zip -o /tmp/terraform_linux_amd64.zip
+sudo unzip /tmp/terraform_linux_amd64.zip -d /usr/local/bin
+rm /tmp/terraform_linux_amd64.zip
+```
+
 ## Prepare the Azure environment
+
+::: warning
+These steps should be done only once
+:::
 
 Create Service Principal and authenticate to Azure - this should be done only
 once for the new Azure accounts:
@@ -115,7 +127,17 @@ Output:
 ]
 ```
 
+Verify the functionality by running:
+
+```shell
+az group list -o table
+```
+
 ### Create DNS zone
+
+::: warning
+These steps should be done only once
+:::
 
 See the details: [https://docs.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns](https://docs.microsoft.com/en-us/azure/dns/dns-delegate-domain-azure-dns)
 
@@ -232,14 +254,45 @@ if [ ! -d .git ]; then
 fi
 ```
 
+Create the k8s cluster with applications:
+
+```bash
+cd terraform
+./terraform-azure.sh init
+./terraform-azure.sh plan
+./terraform-azure.sh apply -auto-approve
+```
+
+Output:
+
+```text
+...
+Apply complete! Resources: 18 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+kubeconfig_export_command = 'export KUBECONFIG=$PWD/azure/../kubeconfig_pruzicka-k8s-myexample-dev'
+```
+
 Check if the new Kubernetes cluster is available:
 
 ```bash
-export KUBECONFIG=$PWD/kubeconfig.conf
+export KUBECONFIG=$(ls kubeconfig_*)
 kubectl get nodes -o wide
 ```
 
 Output:
 
 ```text
+NAME                         STATUS   ROLES   AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+aks-pruzickak8s-34239724-0   Ready    agent   7m30s   v1.14.6   10.240.0.5    <none>        Ubuntu 16.04.6 LTS   4.15.0-1052-azure   docker://3.0.6
+aks-pruzickak8s-34239724-1   Ready    agent   7m37s   v1.14.6   10.240.0.4    <none>        Ubuntu 16.04.6 LTS   4.15.0-1052-azure   docker://3.0.6
+aks-pruzickak8s-34239724-2   Ready    agent   7m23s   v1.14.6   10.240.0.6    <none>        Ubuntu 16.04.6 LTS   4.15.0-1052-azure   docker://3.0.6
 ```
+
+Verify if everything is working by accessing these URLs:
+
+* [https://grafana.myexample.dev](https://grafana.myexample.dev) (admin / admin)
+* [https://jaeger.myexample.dev](https://jaeger.myexample.dev)
+* [https://kiali.myexample.dev](https://kiali.myexample.dev) (admin / admin)
+* [https://prometheus.myexample.dev](https://prometheus.myexample.dev)
