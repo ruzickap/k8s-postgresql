@@ -4,4 +4,3 @@
 "Logo")
 
 Features:
-
