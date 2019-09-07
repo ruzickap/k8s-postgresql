@@ -14,7 +14,7 @@ spec:
   acme:
     config:
     - dns01:
-        provider: azure-dns
+        provider: ${cloud_platform}-dns
       domains:
       - "*.${dnsName}"
 ---

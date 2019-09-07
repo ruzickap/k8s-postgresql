@@ -2,6 +2,7 @@ resource "kubernetes_namespace" "namespace_istio-system" {
   metadata {
     labels = {
       "app" = "kubed"
+      "istio-injection" = "disabled"
     }
     name = "istio-system"
   }
@@ -13,6 +14,7 @@ data "helm_repository" "repository_istio" {
 }
 
 resource "helm_release" "istio-init" {
+  depends_on = [kubernetes_cluster_role_binding.tiller]
   name       = "istio-init"
   repository = "${data.helm_repository.repository_istio.metadata.0.name}"
   chart      = "istio-init"
@@ -85,7 +87,7 @@ resource "helm_release" "istio" {
   }
   set {
     name  = "gateways.istio-ingressgateway.ports[3].name"
-    value = "ssh"
+    value = "postgresql"
   }
   set {
     name  = "gateways.istio-ingressgateway.ports[3].nodePort"
@@ -93,7 +95,7 @@ resource "helm_release" "istio" {
   }
   set {
     name  = "gateways.istio-ingressgateway.ports[3].port"
-    value = "22"
+    value = "5432"
   }
   set {
     name  = "gateways.istio-ingressgateway.sds.enabled"

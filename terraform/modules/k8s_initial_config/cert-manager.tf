@@ -28,7 +28,7 @@ data "helm_repository" "repository_cert-manager" {
 }
 
 resource "helm_release" "cert-manager" {
-  depends_on = [null_resource.cert-manager]
+  depends_on = [null_resource.cert-manager, kubernetes_cluster_role_binding.tiller]
   name       = "cert-manager"
   repository = "${data.helm_repository.repository_cert-manager.metadata.0.name}"
   chart      = "cert-manager"
@@ -43,22 +43,28 @@ resource "helm_release" "cert-manager" {
 
 resource "kubernetes_secret" "example" {
   metadata {
-    name      = "azuredns-config"
+    name      = "cert-manager-dns-config-secret"
     namespace = kubernetes_namespace.namespace_cert-manager.id
   }
   data = {
+    # Azure DNS client secret (for Azure DNS)
     CLIENT_SECRET = var.client_secret
+    # AWS Secret access key (for Route53)
+    secret_access_key: var.secret_access_key
   }
 }
 
 data "template_file" "cert-manager-clusterissuer" {
   template = file("${path.module}/files/cert-manager-${var.cloud_platform}-clusterissuer.yaml.tmpl")
   vars = {
+    # Azure DNS access credentials (for Azure DNS)
     clientID          = var.client_id
     hostedZoneName    = var.dns_zone_name
     resourceGroupName = var.resource_group_name
     subscriptionID    = var.subscription_id
     tenantID          = var.tenant_id
+    # AWS Access key (for Route53)
+    accesskeyid = var.accesskeyid
   }
 }
 
@@ -75,8 +81,9 @@ resource "null_resource" "cert-manager-clusterissuer" {
 }
 
 data "template_file" "cert-manager-certificate" {
-  template = file("${path.module}/files/cert-manager-${var.cloud_platform}-certificate.yaml.tmpl")
+  template = file("${path.module}/files/cert-manager-certificate.yaml.tmpl")
   vars = {
+    cloud_platform          = var.cloud_platform
     dnsName                 = var.dns_zone_name
     letsencrypt_environment = var.letsencrypt_environment
   }

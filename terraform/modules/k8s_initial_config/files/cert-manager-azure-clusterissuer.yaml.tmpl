@@ -16,9 +16,9 @@ spec:
           clientID: ${clientID}
           clientSecretSecretRef:
             key: CLIENT_SECRET
-            name: azuredns-config
+            name: cert-manager-dns-config-secret
           hostedZoneName: ${hostedZoneName}
-          resourceGroupName: ${resourceGroupName}-dns
+          resourceGroupName: ${resource_group_name_dns}
           subscriptionID: ${subscriptionID}
           tenantID: ${tenantID}
 ---
@@ -40,8 +40,8 @@ spec:
           clientID: ${clientID}
           clientSecretSecretRef:
             key: CLIENT_SECRET
-            name: azuredns-config
+            name: cert-manager-dns-config-secret
           hostedZoneName: ${hostedZoneName}
-          resourceGroupName: ${resourceGroupName}-dns
+          resourceGroupName: ${resource_group_name_dns}
           subscriptionID: ${subscriptionID}
           tenantID: ${tenantID}

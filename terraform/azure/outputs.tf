@@ -1,3 +1,3 @@
 output "kubeconfig_export_command" {
-  value = "'export KUBECONFIG=$PWD/azure/${local_file.file.filename}'"
+  value = "'export KUBECONFIG=$PWD/${basename(local_file.file.filename)}'"
 }

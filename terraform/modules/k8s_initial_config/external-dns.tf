@@ -14,7 +14,7 @@ resource "kubernetes_secret" "azure-config-file" {
       {
         "tenantId"        : "${var.tenant_id}",
         "subscriptionId"  : "${var.subscription_id}",
-        "resourceGroup"   : "${var.resource_group_name}-dns",
+        "resourceGroup"   : "${var.resource_group_name_dns}",
         "aadClientId"     : "${var.client_id}",
         "aadClientSecret" : "${var.client_secret}"
       }
@@ -28,7 +28,7 @@ data "helm_repository" "stable" {
 }
 
 resource "helm_release" "external-dns" {
-  depends_on = [kubernetes_secret.azure-config-file]
+  depends_on = [kubernetes_secret.azure-config-file, kubernetes_cluster_role_binding.tiller]
   name       = "external-dns"
   repository = data.helm_repository.stable.metadata.0.name
   chart      = "external-dns"
@@ -37,7 +37,15 @@ resource "helm_release" "external-dns" {
 
   set {
     name  = "provider"
-    value = "azure"
+    value = var.cloud_platform
+  }
+  set {
+    name  = "aws.credentials.secretKey"
+    value = var.secret_access_key
+  }
+  set {
+    name  = "aws.credentials.accessKey"
+    value = var.accesskeyid
   }
   set {
     name  = "azure.secretName"
@@ -45,7 +53,7 @@ resource "helm_release" "external-dns" {
   }
   set {
     name  = "resourceGroup"
-    value = "${var.resource_group_name}-dns"
+    value = "${var.resource_group_name_dns}"
   }
   set {
     name  = "domainFilters"
@@ -73,6 +81,6 @@ resource "helm_release" "external-dns" {
   }
   set {
     name  = "txtOwnerId"
-    value = "${var.prefix}-${var.kubernetes_cluster_name}-${replace(var.dns_zone_name, ".", "-")}"
+    value = "${var.full_kubernetes_cluster_name}"
   }
 }

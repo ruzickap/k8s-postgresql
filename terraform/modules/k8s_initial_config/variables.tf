@@ -1,6 +1,14 @@
-variable "client_id" {}
+variable "accesskeyid" {
+  default = "none"
+}
 
-variable "client_secret" {}
+variable "client_id" {
+  default = "none"
+}
+
+variable "client_secret" {
+  default = "none"
+}
 
 variable "cloud_platform" {
   default = "azure"
@@ -28,9 +36,8 @@ variable "helm_kubed_version" {
 
 variable "kubeconfig" {}
 
-variable "kubernetes_cluster_name" {
-  description = "Name for the Kubernetes cluster (will be used as part of the doman) [k8s.myexample.dev]"
-  default     = "k8s"
+variable "full_kubernetes_cluster_name" {
+  default     = "k8s-mytest"
 }
 
 variable "letsencrypt_environment" {
@@ -45,6 +52,14 @@ variable "resource_group_name" {
   default = "terraform_resource_group_name"
 }
 
-variable "subscription_id" {}
+variable "secret_access_key" {
+  default = "none"
+}
 
-variable "tenant_id" {}
+variable "subscription_id" {
+  default = "none"
+}
+
+variable "tenant_id" {
+  default = "none"
+}
