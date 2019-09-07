@@ -11,13 +11,15 @@ variable_aws() {
   export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-AxxxxxxxxxxxxxxxxxxF}"
   export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-Gxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/}"
   export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-eu-central-1}"
-  export TF_VAR_prefix="${USER}"
-  export TF_VAR_location="${AWS_DEFAULT_REGION}"
-  export TF_VAR_kubernetes_cluster_name="${TF_VAR_kubernetes_cluster_name:-k8s}"
+  export TF_VAR_accesskeyid="${TF_VAR_accesskeyid:-$AWS_ACCESS_KEY_ID}"
   export TF_VAR_dns_zone_name="${TF_VAR_dns_zone_name:-mylabs.dev}"
-  export TF_VAR_vm_size="${TF_VAR_vm_size:-t3.micro}"
+  export TF_VAR_kubernetes_cluster_name="${TF_VAR_kubernetes_cluster_name:-k8s}"
+  export TF_VAR_location="${AWS_DEFAULT_REGION}"
+  export TF_VAR_prefix="${USER}"
+  export TF_VAR_secret_access_key="${TF_VAR_secret_access_key:-$AWS_SECRET_ACCESS_KEY}"
   export TF_VAR_vm_count="${TF_VAR_vm_count:-2}"
   export TF_VAR_vm_root_volume_size="${TF_VAR_vm_root_volume_size:-10}"
+  export TF_VAR_vm_size="${TF_VAR_vm_size:-t3.large}"
   export BUCKET_NAME="${TF_VAR_prefix}-${TF_VAR_kubernetes_cluster_name}.${TF_VAR_dns_zone_name}-tfstate"
   export KEY="terraform.tfstate"
 }
@@ -28,18 +30,20 @@ variable_azure() {
   export ARM_CLIENT_SECRET="${ARM_CLIENT_SECRET:-00000000-0000-0000-0000-000000000000}"
   export ARM_SUBSCRIPTION_ID="${ARM_SUBSCRIPTION_ID:-00000000-0000-0000-0000-000000000000}"
   export ARM_TENANT_ID="${ARM_TENANT_ID:-00000000-0000-0000-0000-000000000000}"
-  export TF_VAR_prefix="${USER}"
-  export TF_VAR_location="${LOCATION:-francecentral}"
-  export TF_VAR_resource_group_name="${TF_VAR_resource_group_name:-${TF_VAR_prefix}-k8s-test}"
-  export TF_VAR_kubernetes_cluster_name="${TF_VAR_kubernetes_cluster_name:-k8s}"
-  export TF_VAR_kubernetes_version="${TF_VAR_kubernetes_version:-1.14.6}"
   export TF_VAR_client_id="${ARM_CLIENT_ID}"
   export TF_VAR_client_secret="${ARM_CLIENT_SECRET}"
+  export TF_VAR_dns_zone_name="${TF_VAR_dns_zone_name:-myexample.dev}"
+  export TF_VAR_kubernetes_cluster_name="${TF_VAR_kubernetes_cluster_name:-k8s}"
+  export TF_VAR_kubernetes_version="${TF_VAR_kubernetes_version:-1.14.6}"
+  export TF_VAR_location="${LOCATION:-francecentral}"
+  export TF_VAR_prefix="${USER}"
+  export TF_VAR_resource_group_name="${TF_VAR_resource_group_name:-${TF_VAR_prefix}-${TF_VAR_kubernetes_cluster_name}-test}"
+  # Resource group where Terraform can locate DNS zone (myexample.dev)
+  export TF_VAR_resource_group_name_dns="${TF_VAR_resource_group_name:-pruzicka-k8s-test-dns}"
   export TF_VAR_subscription_id="${ARM_SUBSCRIPTION_ID}"
   export TF_VAR_tenant_id="${ARM_TENANT_ID}"
-  export TF_VAR_dns_zone_name="${TF_VAR_dns_zone_name:-myexample.dev}"
-  export TF_VAR_vm_size="${TF_VAR_vm_size:-Standard_B2ms}"
   export TF_VAR_vm_count="${TF_VAR_vm_count:-3}"
+  export TF_VAR_vm_size="${TF_VAR_vm_size:-Standard_D2_v3}"
   export STORAGE_ACCOUNT_NAME="${TF_VAR_prefix}${TF_VAR_kubernetes_cluster_name}tf"
   export CONTAINER_NAME="${TF_VAR_resource_group_name}-tfstate"
 }
@@ -109,7 +113,7 @@ cmdline() {
       ;;
     *)
       set -x
-      terraform "$@"
+      terraform $@
       ;;
   esac
 }
