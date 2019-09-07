@@ -2,21 +2,21 @@ data "aws_availability_zones" "availability_zones" {
 }
 
 module "vpc" {
-  source                = "git::https://github.com/terraform-aws-modules/terraform-aws-vpc.git?ref=v2.15.0"
+  source               = "git::https://github.com/terraform-aws-modules/terraform-aws-vpc.git?ref=v2.15.0"
   name                 = "${var.prefix}-${var.kubernetes_cluster_name}.${var.dns_zone_name}-vpc"
   cidr                 = "10.0.0.0/16"
   azs                  = [data.aws_availability_zones.availability_zones.names[0], data.aws_availability_zones.availability_zones.names[1]]
   public_subnets       = ["10.0.1.0/24", "10.0.2.0/24"]
   enable_dns_hostnames = true
 
-  tags                 = "${
+  tags = "${
     merge(
       var.tags,
       map("kubernetes.io/cluster/${var.prefix}-${var.kubernetes_cluster_name}-${replace(var.dns_zone_name, ".", "-")}-eks", "shared"),
     )
   }"
 
-  public_subnet_tags   = "${
+  public_subnet_tags = "${
     merge(
       var.tags,
       map("kubernetes.io/cluster/${var.prefix}-${var.kubernetes_cluster_name}-${replace(var.dns_zone_name, ".", "-")}-eks", "shared"),
@@ -29,7 +29,7 @@ resource "aws_security_group" "security_group" {
   name        = "${var.prefix}-${var.kubernetes_cluster_name}.${var.dns_zone_name}-security_group"
   description = "Allow SSH inbound traffic"
   vpc_id      = module.vpc.vpc_id
-  tags = var.tags
+  tags        = var.tags
 
   ingress {
     from_port = 22
@@ -54,7 +54,7 @@ module "eks" {
   vpc_id                = module.vpc.vpc_id
   write_kubeconfig      = false
   write_aws_auth_config = false
-  tags = var.tags
+  tags                  = var.tags
 
   worker_groups = [
     {
@@ -63,9 +63,9 @@ module "eks" {
       enable_monitoring    = false
       instance_type        = var.vm_size
 
-      key_name = aws_key_pair.key_pair.key_name
-      name = "${var.prefix}-${var.kubernetes_cluster_name}-${var.dns_zone_name}-worker_group"
-      public_ip = true
+      key_name         = aws_key_pair.key_pair.key_name
+      name             = "${var.prefix}-${var.kubernetes_cluster_name}-${var.dns_zone_name}-worker_group"
+      public_ip        = true
       root_volume_size = var.vm_disk_size
     }
   ]

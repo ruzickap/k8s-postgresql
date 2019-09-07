@@ -1,7 +1,7 @@
 resource "kubernetes_namespace" "namespace_istio-system" {
   metadata {
     labels = {
-      "app" = "kubed"
+      "app"             = "kubed"
       "istio-injection" = "disabled"
     }
     name = "istio-system"

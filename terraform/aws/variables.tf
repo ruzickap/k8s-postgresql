@@ -43,7 +43,7 @@ variable "vm_count" {
 }
 
 variable "vm_disk_size" {
-    default = 10
+  default = 10
 }
 
 variable "vm_size" {

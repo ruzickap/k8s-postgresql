@@ -37,7 +37,7 @@ variable "helm_kubed_version" {
 variable "kubeconfig" {}
 
 variable "full_kubernetes_cluster_name" {
-  default     = "k8s-mytest"
+  default = "k8s-mytest"
 }
 
 variable "letsencrypt_environment" {

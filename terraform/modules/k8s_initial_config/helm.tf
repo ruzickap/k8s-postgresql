@@ -1,6 +1,6 @@
 resource "kubernetes_service_account" "tiller" {
   metadata {
-    name = "tiller"
+    name      = "tiller"
     namespace = "kube-system"
   }
 }
@@ -28,7 +28,7 @@ resource "kubernetes_cluster_role_binding" "tiller" {
 
 provider "helm" {
   service_account = kubernetes_service_account.tiller.metadata.0.name
-  debug = true
+  debug           = true
   kubernetes {
     config_path = var.kubeconfig
   }

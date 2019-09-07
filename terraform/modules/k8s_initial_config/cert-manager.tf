@@ -50,7 +50,7 @@ resource "kubernetes_secret" "example" {
     # Azure DNS client secret (for Azure DNS)
     CLIENT_SECRET = var.client_secret
     # AWS Secret access key (for Route53)
-    secret_access_key: var.secret_access_key
+    secret_access_key : var.secret_access_key
   }
 }
 
