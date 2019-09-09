@@ -84,15 +84,15 @@ resource "local_file" "file" {
 # (Currently cluster is beeing destroyed before helm charts are removed which
 # is causing terraform dependency issues)
 
-# module "k8s_initial_config" {
-#   source = "../modules/k8s_initial_config"
+module "k8s_initial_config" {
+  source = "../modules/k8s_initial_config"
 
-#   accesskeyid                  = var.accesskeyid
-#   cloud_platform               = var.cloud_platform
-#   dns_zone_name                = var.dns_zone_name
-#   kubeconfig                   = local_file.file.filename
-#   full_kubernetes_cluster_name = dirname(module.eks.cluster_id)
-#   letsencrypt_environment      = var.letsencrypt_environment
-#   prefix                       = var.prefix
-#   secret_access_key            = var.secret_access_key
-# }
+  accesskeyid                  = var.accesskeyid
+  cloud_platform               = var.cloud_platform
+  dns_zone_name                = var.dns_zone_name
+  kubeconfig                   = local_file.file.filename
+  full_kubernetes_cluster_name = dirname(module.eks.cluster_id)
+  letsencrypt_environment      = var.letsencrypt_environment
+  prefix                       = var.prefix
+  secret_access_key            = var.secret_access_key
+}

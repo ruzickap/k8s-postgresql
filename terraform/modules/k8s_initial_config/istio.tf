@@ -36,6 +36,7 @@ resource "helm_release" "istio" {
   chart      = "istio"
   version    = var.helm_istio_version
   namespace  = kubernetes_namespace.namespace_istio-system.id
+  timeout    = 600
 
   set {
     name  = "gateways.istio-ingressgateway.autoscaleMax"
@@ -96,6 +97,18 @@ resource "helm_release" "istio" {
   set {
     name  = "gateways.istio-ingressgateway.ports[3].port"
     value = "5432"
+  }
+  set {
+    name  = "gateways.istio-ingressgateway.ports[4].name"
+    value = "postgresql-repl"
+  }
+  set {
+    name  = "gateways.istio-ingressgateway.ports[4].nodePort"
+    value = "31401"
+  }
+  set {
+    name  = "gateways.istio-ingressgateway.ports[4].port"
+    value = "5433"
   }
   set {
     name  = "gateways.istio-ingressgateway.sds.enabled"
@@ -176,6 +189,11 @@ resource "null_resource" "istio-gateway" {
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-gateway.rendered}\nEOF"
   }
+
+  provisioner "local-exec" {
+    when = "destroy"
+    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-gateway.rendered}\nEOF"
+  }
 }
 
 data "template_file" "istio-services" {
@@ -195,5 +213,10 @@ resource "null_resource" "istio-services" {
 
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-services.rendered}\nEOF"
+  }
+
+  provisioner "local-exec" {
+    when = "destroy"
+    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-services.rendered}\nEOF"
   }
 }

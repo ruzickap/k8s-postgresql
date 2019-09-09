@@ -8,10 +8,10 @@ resource "kubernetes_namespace" "namespace_cert-manager" {
 }
 
 data "http" "crd_cert-manager" {
-  url = "https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml"
+  url = "https://raw.githubusercontent.com/jetstack/cert-manager/release-${replace(var.helm_cert-manager_version, "/^v?(\\d+\\.\\d+)\\.\\d+$/", "$1")}/deploy/manifests/00-crds.yaml"
 }
 
-resource "null_resource" "cert-manager" {
+resource "null_resource" "cert-manager-crds" {
   depends_on = [kubernetes_namespace.namespace_cert-manager]
   triggers = {
     template_file_cert-manager_application_sha1 = "${sha1("${data.http.crd_cert-manager.body}")}"
@@ -19,6 +19,11 @@ resource "null_resource" "cert-manager" {
 
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f ${data.http.crd_cert-manager.url}"
+  }
+
+  provisioner "local-exec" {
+    when = "destroy"
+    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f ${data.http.crd_cert-manager.url}"
   }
 }
 
@@ -28,7 +33,7 @@ data "helm_repository" "repository_cert-manager" {
 }
 
 resource "helm_release" "cert-manager" {
-  depends_on = [null_resource.cert-manager, kubernetes_cluster_role_binding.tiller]
+  depends_on = [null_resource.cert-manager-crds, kubernetes_cluster_role_binding.tiller]
   name       = "cert-manager"
   repository = "${data.helm_repository.repository_cert-manager.metadata.0.name}"
   chart      = "cert-manager"
@@ -41,16 +46,16 @@ resource "helm_release" "cert-manager" {
 # Certificates
 ############################
 
-resource "kubernetes_secret" "example" {
+resource "kubernetes_secret" "secret" {
   metadata {
     name      = "cert-manager-dns-config-secret"
     namespace = kubernetes_namespace.namespace_cert-manager.id
   }
   data = {
     # Azure DNS client secret (for Azure DNS)
-    CLIENT_SECRET = var.client_secret
+    CLIENT_SECRET     = var.client_secret
     # AWS Secret access key (for Route53)
-    secret_access_key : var.secret_access_key
+    secret-access-key = var.secret_access_key
   }
 }
 
@@ -79,6 +84,11 @@ resource "null_resource" "cert-manager-clusterissuer" {
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.cert-manager-clusterissuer.rendered}\nEOF"
   }
+
+  provisioner "local-exec" {
+    when = "destroy"
+    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.cert-manager-clusterissuer.rendered}\nEOF"
+  }
 }
 
 data "template_file" "cert-manager-certificate" {
@@ -99,5 +109,10 @@ resource "null_resource" "cert-manager-certificate" {
 
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.cert-manager-certificate.rendered}\nEOF"
+  }
+
+  provisioner "local-exec" {
+    when = "destroy"
+    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.cert-manager-certificate.rendered}\nEOF"
   }
 }
