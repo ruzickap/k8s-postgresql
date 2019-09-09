@@ -2,7 +2,7 @@
 dist: xenial
 
 env:
-  - MY_DOMAIN=myexample.dev
+  - MY_DOMAIN="(myexample.dev|mylabs.dev)"
 
 branches:
   only:
