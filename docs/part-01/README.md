@@ -26,12 +26,13 @@ You can skip these steps if you have all the required software already
 installed.
 :::
 
-Install necessary software:
+Install necessary software and [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt):
 
 ```bash
 if [ -x /usr/bin/apt ]; then
   apt update -qq
   DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl gettext-base git jq openssh-client sudo unzip wget > /dev/null
+  curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 fi
 ```
 
@@ -44,18 +45,14 @@ if [ ! -x /usr/local/bin/kubectl ]; then
 fi
 ```
 
-Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt):
-
-```bash
-curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-```
-
 Install [Terraform](https://www.terraform.io/):
 
 ```bash
-curl -sL https://releases.hashicorp.com/terraform/0.12.8/terraform_0.12.8_linux_amd64.zip -o /tmp/terraform_linux_amd64.zip
-sudo unzip /tmp/terraform_linux_amd64.zip -d /usr/local/bin
-rm /tmp/terraform_linux_amd64.zip
+if [ ! -x /usr/local/bin/terraform ]; then
+  curl -sL https://releases.hashicorp.com/terraform/0.12.8/terraform_0.12.8_linux_amd64.zip -o /tmp/terraform_linux_amd64.zip
+  sudo unzip /tmp/terraform_linux_amd64.zip -d /usr/local/bin
+  rm /tmp/terraform_linux_amd64.zip
+fi
 ```
 
 ## Prepare the Azure environment
@@ -278,7 +275,7 @@ kubeconfig_export_command = 'export KUBECONFIG=$PWD/terraform/kubeconfig_pruzick
 Check if the new Kubernetes cluster is available:
 
 ```bash
-export KUBECONFIG=$(ls kubeconfig_*)
+export KUBECONFIG="$PWD/$(ls terraform/kubeconfig_*)"
 kubectl get nodes -o wide
 ```
 
