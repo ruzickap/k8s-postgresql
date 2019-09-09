@@ -39,7 +39,7 @@ variable_azure() {
   export TF_VAR_prefix="${USER}"
   export TF_VAR_resource_group_name="${TF_VAR_resource_group_name:-${TF_VAR_prefix}-${TF_VAR_kubernetes_cluster_name}-test}"
   # Resource group where Terraform can locate DNS zone (myexample.dev)
-  export TF_VAR_resource_group_name_dns="${TF_VAR_resource_group_name:-pruzicka-k8s-test-dns}"
+  export TF_VAR_resource_group_name_dns="${TF_VAR_resource_group_name_dns:-pruzicka-k8s-test-dns}"
   export TF_VAR_subscription_id="${ARM_SUBSCRIPTION_ID}"
   export TF_VAR_tenant_id="${ARM_TENANT_ID}"
   export TF_VAR_vm_count="${TF_VAR_vm_count:-3}"
