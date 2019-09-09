@@ -93,6 +93,7 @@ module "k8s_initial_config" {
   kubeconfig                   = local_file.file.filename
   full_kubernetes_cluster_name = dirname(module.eks.cluster_id)
   letsencrypt_environment      = var.letsencrypt_environment
+  location                     = var.location
   prefix                       = var.prefix
   secret_access_key            = var.secret_access_key
 }

@@ -14,7 +14,7 @@ spec:
       - name: aws-dns
         route53:
           accessKeyID: ${accesskeyid}
-          region: eu-central-1
+          region: ${location}
           secretAccessKeySecretRef:
             name: cert-manager-dns-config-secret
             key: secret-access-key
@@ -35,7 +35,7 @@ spec:
       - name: aws-dns
         route53:
           accessKeyID: ${accesskeyid}
-          region: eu-central-1
+          region: ${location}
           secretAccessKeySecretRef:
             name: cert-manager-dns-config-secret
             key: secret-access-key

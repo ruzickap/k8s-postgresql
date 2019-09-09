@@ -14,6 +14,10 @@ variable "cloud_platform" {
   default = "azure"
 }
 
+variable "full_kubernetes_cluster_name" {
+  default = "k8s-mytest"
+}
+
 variable "dns_zone_name" {
   default = "myexample.dev"
 }
@@ -36,12 +40,12 @@ variable "helm_kubed_version" {
 
 variable "kubeconfig" {}
 
-variable "full_kubernetes_cluster_name" {
-  default = "k8s-mytest"
-}
-
 variable "letsencrypt_environment" {
   default = "staging"
+}
+
+variable "location" {
+  default = "eu-central-1"
 }
 
 variable "prefix" {
