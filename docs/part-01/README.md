@@ -12,11 +12,11 @@ The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
 * `production` - Let’s Encrypt will create valid certificate (use with care)
 
 ```bash
-export MY_DOMAIN=${MY_DOMAIN:-myexample.dev}
+export CLOUD_PLATFORM="${CLOUD_PLATFORM:-aws}"
+if [ "$CLOUD_PLATFORM" = "aws" ]; then export MY_DOMAIN=${MY_DOMAIN:-mylabs.dev}; fi
+if [ "$CLOUD_PLATFORM" = "aws" ]; then export MY_DOMAIN=${MY_DOMAIN:-myexample.dev}; fi
 export LETSENCRYPT_ENVIRONMENT=${LETSENCRYPT_ENVIRONMENT:-staging}
-export AZURE_RESOURCE_GROUP_NAME="pruzicka-k8s-test"
-export AZURE_LOCATION="westeurope"
-echo "*** ${MY_DOMAIN} | ${LETSENCRYPT_ENVIRONMENT} | ${AZURE_RESOURCE_GROUP_NAME} | ${AZURE_LOCATION} ***"
+echo "*** ${CLOUD_PLATFORM:-aws} | ${MY_DOMAIN} | ${LETSENCRYPT_ENVIRONMENT} ***"
 ```
 
 ## Prepare the local working environment
@@ -255,9 +255,9 @@ Create the k8s cluster with applications:
 
 ```bash
 cd terraform
-./terraform-azure.sh init
-./terraform-azure.sh plan
-./terraform-azure.sh apply -auto-approve
+./terraform-${CLOUD_PLATFORM}.sh init
+./terraform-${CLOUD_PLATFORM}.sh plan
+./terraform-${CLOUD_PLATFORM}.sh apply -auto-approve
 cd ..
 ```
 
@@ -279,7 +279,7 @@ export KUBECONFIG="$PWD/$(ls terraform/kubeconfig_*)"
 kubectl get nodes -o wide
 ```
 
-Output:
+Output for Azure (AKS):
 
 ```text
 NAME                         STATUS   ROLES   AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
@@ -288,9 +288,26 @@ aks-pruzickak8s-34239724-1   Ready    agent   7m37s   v1.14.6   10.240.0.4    <n
 aks-pruzickak8s-34239724-2   Ready    agent   7m23s   v1.14.6   10.240.0.6    <none>        Ubuntu 16.04.6 LTS   4.15.0-1052-azure   docker://3.0.6
 ```
 
+Output for AWS (EKS):
+
+```text
+NAME                                          STATUS   ROLES    AGE     VERSION               INTERNAL-IP   EXTERNAL-IP     OS-IMAGE         KERNEL-VERSION                  CONTAINER-RUNTIME
+ip-10-0-1-116.eu-central-1.compute.internal   Ready    <none>   6m42s   v1.13.10-eks-d6460e   10.0.1.116    18.184.43.220   Amazon Linux 2   4.14.138-114.102.amzn2.x86_64   docker://18.6.1
+ip-10-0-2-250.eu-central-1.compute.internal   Ready    <none>   6m41s   v1.13.10-eks-d6460e   10.0.2.250    54.93.247.34    Amazon Linux 2   4.14.138-114.102.amzn2.x86_64   docker://18.6.1
+```
+
 Verify if everything is working by accessing these URLs:
 
-* [https://grafana.myexample.dev](https://grafana.myexample.dev) (admin / admin)
-* [https://jaeger.myexample.dev](https://jaeger.myexample.dev)
-* [https://kiali.myexample.dev](https://kiali.myexample.dev) (admin / admin)
-* [https://prometheus.myexample.dev](https://prometheus.myexample.dev)
+* Azure:
+
+  * [https://grafana.myexample.dev](https://grafana.myexample.dev) (admin / admin)
+  * [https://jaeger.myexample.dev](https://jaeger.myexample.dev)
+  * [https://kiali.myexample.dev](https://kiali.myexample.dev) (admin / admin)
+  * [https://prometheus.myexample.dev](https://prometheus.myexample.dev)
+
+* AWS
+
+  * [https://grafana.mylabs.dev](https://grafana.mylabs.dev) (admin / admin)
+  * [https://jaeger.mylabs.dev](https://jaeger.mylabs.dev)
+  * [https://kiali.mylabs.dev](https://kiali.mylabs.dev) (admin / admin)
+  * [https://prometheus.mylabs.dev](https://prometheus.mylabs.dev)
