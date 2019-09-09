@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: petr.ruzicka@gmail.com
+    email: ${email}
     privateKeySecretRef:
       name: letsencrypt-staging-dns
     dns01:
@@ -30,7 +30,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: petr.ruzicka@gmail.com
+    email: ${email}
     privateKeySecretRef:
       name: letsencrypt-production-dns
     dns01:

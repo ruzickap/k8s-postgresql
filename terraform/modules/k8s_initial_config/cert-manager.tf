@@ -62,15 +62,17 @@ resource "kubernetes_secret" "secret" {
 data "template_file" "cert-manager-clusterissuer" {
   template = file("${path.module}/files/cert-manager-${var.cloud_platform}-clusterissuer.yaml.tmpl")
   vars = {
+    email                   = var.email
+    hostedZoneName          = var.dns_zone_name
     # Azure DNS access credentials (for Azure DNS)
     clientID                = var.client_id
-    resource_group_name_dns = var.resource_group_name_dns
-    hostedZoneName          = var.dns_zone_name
     resourceGroupName       = var.resource_group_name
+    resource_group_name_dns = var.resource_group_name_dns
     subscriptionID          = var.subscription_id
     tenantID                = var.tenant_id
     # AWS Access key (for Route53)
     accesskeyid             = var.accesskeyid
+    location                = var.location
   }
 }
 

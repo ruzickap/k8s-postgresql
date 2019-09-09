@@ -14,12 +14,16 @@ variable "cloud_platform" {
   default = "azure"
 }
 
-variable "full_kubernetes_cluster_name" {
-  default = "k8s-mytest"
-}
-
 variable "dns_zone_name" {
   default = "myexample.dev"
+}
+
+variable "email" {
+  default = "petr.ruzicka@gmail.com"
+}
+
+variable "full_kubernetes_cluster_name" {
+  default = "k8s-mytest"
 }
 
 variable "helm_cert-manager_version" {
