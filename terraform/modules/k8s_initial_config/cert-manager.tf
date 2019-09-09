@@ -58,13 +58,14 @@ data "template_file" "cert-manager-clusterissuer" {
   template = file("${path.module}/files/cert-manager-${var.cloud_platform}-clusterissuer.yaml.tmpl")
   vars = {
     # Azure DNS access credentials (for Azure DNS)
-    clientID          = var.client_id
-    hostedZoneName    = var.dns_zone_name
-    resourceGroupName = var.resource_group_name
-    subscriptionID    = var.subscription_id
-    tenantID          = var.tenant_id
+    clientID                = var.client_id
+    resource_group_name_dns = var.resource_group_name_dns
+    hostedZoneName          = var.dns_zone_name
+    resourceGroupName       = var.resource_group_name
+    subscriptionID          = var.subscription_id
+    tenantID                = var.tenant_id
     # AWS Access key (for Route53)
-    accesskeyid = var.accesskeyid
+    accesskeyid             = var.accesskeyid
   }
 }
 

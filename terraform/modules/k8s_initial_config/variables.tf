@@ -52,6 +52,11 @@ variable "resource_group_name" {
   default = "terraform_resource_group_name"
 }
 
+variable "resource_group_name_dns" {
+  description = "Resource group where Terrafrom can locate DNS zone (myexample.dev)"
+  default     = "terraform_resource_group_name-dns"
+}
+
 variable "secret_access_key" {
   default = "none"
 }
