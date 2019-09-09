@@ -42,13 +42,13 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 # cd /mnt
 
 # export LETSENCRYPT_ENVIRONMENT="production"  # Use with care - Let's Encrypt will generate real certificates
-# export MY_DOMAIN="myexample.dev"
+# export CLOUD_PLATFORM="aws"  # or "azure"
 
 # ./run-k8s-full.sh
 
-[ ! -d .git ] && git clone --quiet https://github.com/ruzickap/k8s-flux-istio-gitlab-harbor && cd k8s-flux-istio-gitlab-harbor
+[ ! -d .git ] && git clone --quiet https://github.com/ruzickap/k8s-postgresql && cd k8s-postgresql
 
-sed -n '/^```bash$/,/^```$/p;/^-----$/p' docs/part-01/README.md \
+sed -n '/^```bash$/,/^```$/p;/^-----$/p' docs/part-0{1..2}/README.md \
 | \
 sed \
   -e 's/^```bash.*/\
