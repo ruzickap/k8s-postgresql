@@ -12,9 +12,9 @@ The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
 * `production` - Let’s Encrypt will create valid certificate (use with care)
 
 ```bash
-export CLOUD_PLATFORM="${CLOUD_PLATFORM:-aws}"
+export CLOUD_PLATFORM="${CLOUD_PLATFORM:-azure}"
 if [ "$CLOUD_PLATFORM" = "aws" ]; then export MY_DOMAIN=${MY_DOMAIN:-mylabs.dev}; fi
-if [ "$CLOUD_PLATFORM" = "aws" ]; then export MY_DOMAIN=${MY_DOMAIN:-myexample.dev}; fi
+if [ "$CLOUD_PLATFORM" = "azure" ]; then export MY_DOMAIN=${MY_DOMAIN:-myexample.dev}; fi
 export LETSENCRYPT_ENVIRONMENT=${LETSENCRYPT_ENVIRONMENT:-staging}
 echo "*** ${CLOUD_PLATFORM:-aws} | ${MY_DOMAIN} | ${LETSENCRYPT_ENVIRONMENT} ***"
 ```

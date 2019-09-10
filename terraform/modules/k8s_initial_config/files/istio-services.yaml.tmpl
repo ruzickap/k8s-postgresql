@@ -9,7 +9,7 @@ spec:
   servers:
   - port:
       number: 80
-      name: http-services
+      name: http-istio-services
       protocol: HTTP
     hosts:
     - grafana.${dnsName}
@@ -18,7 +18,7 @@ spec:
     - prometheus.${dnsName}
   - port:
       number: 443
-      name: https-services
+      name: https-istio-services
       protocol: HTTPS
     hosts:
     - grafana.${dnsName}
