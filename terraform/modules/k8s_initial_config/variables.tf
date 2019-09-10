@@ -31,7 +31,7 @@ variable "helm_cert-manager_version" {
 }
 
 variable "helm_external-dns_version" {
-  default = "2.5.6"
+  default = "2.6.0"
 }
 
 variable "helm_istio_version" {
@@ -39,7 +39,7 @@ variable "helm_istio_version" {
 }
 
 variable "helm_kubed_version" {
-  default = "0.10.0"
+  default = "v0.11.0"
 }
 
 variable "kubeconfig" {}
