@@ -2,12 +2,15 @@ azure-cli
 bg_mon
 decoderbufs
 hypopg
+Istio
 k8s
 kubectl
 Kubernetes
 Kukushkin
 nameservers
+Partoni
 Patroni
+pgAdmin
 pg_auth_mon
 pg_basebackup
 pg_cron
@@ -23,5 +26,6 @@ PostgreSQL
 set_user
 Spilo
 timescaledb
+VirtualServices
 WAL-E
 Zalando
