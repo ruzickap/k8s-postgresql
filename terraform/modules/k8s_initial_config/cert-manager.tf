@@ -39,6 +39,11 @@ resource "helm_release" "cert-manager" {
   chart      = "cert-manager"
   version    = var.helm_cert-manager_version
   namespace  = kubernetes_namespace.namespace_cert-manager.id
+
+  set {
+    name  = "webhook.enabled"
+    value = "false"
+  }
 }
 
 
