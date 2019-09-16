@@ -15,8 +15,9 @@
 ## Content
 
 * [Part 01 - Create AKS (Kubernetes) cluster in AWS](part-01/README.md)
-* [Part 02 - Zalando Postgres Operator](part-02/README.md)
-* [Part 03 - Crunchy Data PostgreSQL Operator](part-03/README.md)
+* [Part 02 - Patroni](part-02/README.md)
+* [Part 03 - Zalando Postgres Operator](part-03/README.md)
+* [Part 04 - Crunchy Data PostgreSQL Operator](part-04/README.md)
 
 ## Links
 

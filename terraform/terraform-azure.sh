@@ -35,7 +35,7 @@ variable_azure() {
   export TF_VAR_dns_zone_name="${TF_VAR_dns_zone_name:-myexample.dev}"
   export TF_VAR_kubernetes_cluster_name="${TF_VAR_kubernetes_cluster_name:-k8s}"
   export TF_VAR_kubernetes_version="${TF_VAR_kubernetes_version:-1.14.6}"
-  export TF_VAR_location="${LOCATION:-francecentral}"
+  export TF_VAR_location="${LOCATION:-uksouth}"
   export TF_VAR_prefix="${USER}"
   export TF_VAR_resource_group_name="${TF_VAR_resource_group_name:-${TF_VAR_prefix}-${TF_VAR_kubernetes_cluster_name}-test}"
   # Resource group where Terraform can locate DNS zone (myexample.dev)

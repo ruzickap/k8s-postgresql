@@ -173,6 +173,7 @@ resource "helm_release" "istio" {
 }
 
 data "template_file" "istio-gateway" {
+  depends_on = [helm_release.istio]
   template = file("${path.module}/files/istio-gateway.yaml.tmpl")
   vars = {
     letsencrypt_environment = var.letsencrypt_environment
@@ -189,11 +190,6 @@ resource "null_resource" "istio-gateway" {
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-gateway.rendered}\nEOF"
   }
-
-  provisioner "local-exec" {
-    when = "destroy"
-    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-gateway.rendered}\nEOF"
-  }
 }
 
 data "template_file" "istio-services" {
@@ -205,7 +201,7 @@ data "template_file" "istio-services" {
 }
 
 resource "null_resource" "istio-services" {
-  depends_on = [null_resource.istio-gateway]
+  depends_on = [helm_release.istio]
 
   triggers = {
     template_file_istio-services_sha1 = "${sha1("${data.template_file.istio-services.rendered}")}"
@@ -213,10 +209,5 @@ resource "null_resource" "istio-services" {
 
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-services.rendered}\nEOF"
-  }
-
-  provisioner "local-exec" {
-    when = "destroy"
-    command = "kubectl delete --kubeconfig=${var.kubeconfig} -f -<<EOF\n${data.template_file.istio-services.rendered}\nEOF"
   }
 }

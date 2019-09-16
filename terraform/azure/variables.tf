@@ -28,7 +28,7 @@ variable "letsencrypt_environment" {
 }
 
 variable "location" {
-  default = "westeurope"
+  default = "uksouth"
 }
 
 variable "prefix" {
