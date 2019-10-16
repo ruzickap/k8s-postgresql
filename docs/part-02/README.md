@@ -271,7 +271,7 @@ helm repo add harbor https://helm.goharbor.io
 Install Harbor using Helm:
 
 ```bash
-helm install --wait --name harbor --namespace harbor harbor/harbor --version v1.1.2 \
+helm install --wait --name harbor --namespace harbor harbor/harbor --version v1.1.3 \
   --set database.external.clairDatabase="harbor-clair" \
   --set database.external.coreDatabase="harbor-registry" \
   --set database.external.host="patroni.patroni.svc.cluster.local" \
@@ -288,7 +288,7 @@ helm install --wait --name harbor --namespace harbor harbor/harbor --version v1.
   --set persistence.enabled="false"
 ```
 
-Open the [https://harbor.mylabs.dev](https://harbor.mylabs.dev):
+Open the [https://harbor.myexample.dev](https://harbor.myexample.dev):
 
 ![Harbor login page](./harbor_login_page.png "Harbor login page")
 
