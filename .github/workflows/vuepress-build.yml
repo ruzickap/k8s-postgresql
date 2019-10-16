@@ -11,7 +11,7 @@ on:
     - package-lock.json
 
 env:
-  EXCLUDE_WEB_PAGES: "(myexample.dev)"
+  EXCLUDE_WEB_PAGES: "(myexample.dev|mylabs.dev)"
 
 jobs:
   markdown-lint-check:
