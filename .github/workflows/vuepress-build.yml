@@ -4,14 +4,11 @@ on:
   push:
     branches: [master]
     paths:
-    - '.github/**'
-    - 'docs/**'
+    - .github/**
+    - docs/**
     - .spelling
     - package.json
     - package-lock.json
-
-env:
-  EXCLUDE_WEB_PAGES: "(myexample.dev|mylabs.dev)"
 
 jobs:
   markdown-lint-check:
@@ -74,20 +71,16 @@ jobs:
         npm install
         npm run build
         cp LICENSE docs/.vuepress/dist
-        ln -s docs/.vuepress/dist ${GITHUB_REPOSITORY##*/}
         sed -e "s@(part-@(https://github.com/${GITHUB_REPOSITORY}/tree/master/docs/part-@" -e 's@.\/.vuepress\/public\/@./@' docs/README.md > docs/.vuepress/dist/README.md
 
-    - name: "Check links"
+    - name: Check broken links
+      env:
+        INPUT_URL: https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}
+        INPUT_PAGES_PATH: .
+        INPUT_CMD_PARAMS: --verbose --buffer-size=8192 --concurrency=10 --skip-tls-verification --exclude=(myexample.dev|mylabs.dev)
       run: |
-        echo "127.0.0.1 ${GITHUB_REPOSITORY%/*}.github.io" | sudo tee -a /etc/hosts
-        curl -s https://getcaddy.com | bash -s personal
-        cat > Caddyfile << EOF
-        https://${GITHUB_REPOSITORY%/*}.github.io
-        tls self_signed
-        EOF
-        sudo caddy -quiet &
-        go get -u github.com/raviqqe/muffet
-        ~/go/bin/muffet --concurrency=10 --skip-tls-verification --exclude "${EXCLUDE_WEB_PAGES}" https://${GITHUB_REPOSITORY%/*}.github.io/${GITHUB_REPOSITORY##*/}
+        ln -s docs/.vuepress/dist ${{ github.event.repository.name }}
+        wget -qO- https://raw.githubusercontent.com/ruzickap/action-broken-link-checker/v1/entrypoint.sh | bash
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.8.0
