@@ -174,7 +174,7 @@ resource "helm_release" "istio" {
 
 data "template_file" "istio-gateway" {
   depends_on = [helm_release.istio]
-  template = file("${path.module}/files/istio-gateway.yaml.tmpl")
+  template   = file("${path.module}/files/istio-gateway.yaml.tmpl")
   vars = {
     letsencrypt_environment = var.letsencrypt_environment
   }
