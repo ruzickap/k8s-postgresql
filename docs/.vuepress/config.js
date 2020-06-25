@@ -1,9 +1,9 @@
 module.exports = {
-  title: "Kubernetes + PostgreSQL",
-  description: "Kubernetes + PostgreSQL",
+  title: 'Kubernetes + PostgreSQL',
+  description: 'Kubernetes + PostgreSQL',
   base: '/k8s-postgresql/',
   head: [
-    ['link', { rel: "icon", href: "https://kubernetes.io/images/favicon.png" }]
+    ['link', { rel: 'icon', href: 'https://kubernetes.io/images/favicon.png' }]
   ],
   themeConfig: {
     displayAllHeaders: true,
@@ -18,7 +18,7 @@ module.exports = {
         text: 'Links',
         items: [
           { text: 'CrunchyData PostgreSQL Operator', link: 'https://github.com/CrunchyData/postgres-operator' },
-          { text: 'Zalando PostgreSQL Operator', link: 'https://github.com/zalando/postgres-operator' },
+          { text: 'Zalando PostgreSQL Operator', link: 'https://github.com/zalando/postgres-operator' }
         ]
       }
     ],
@@ -26,7 +26,7 @@ module.exports = {
       '/',
       '/part-01/',
       '/part-02/',
-      '/part-03/',
+      '/part-03/'
     ]
   },
   plugins: [
