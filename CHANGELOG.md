@@ -1,10 +1,21 @@
 # Changelog
 
+## [v0.1.0](https://github.com/ruzickap/k8s-postgresql/compare/v0.0.1...v0.1.0) (2020-09-17)
+
+- Add new line to periodic-broken-link-checks.yml [`#63`](https://github.com/ruzickap/k8s-postgresql/pull/63)
+- Replace markdown linter [`#51`](https://github.com/ruzickap/k8s-postgresql/pull/51)
+- Add super-linter + fix related issues [`#46`](https://github.com/ruzickap/k8s-postgresql/pull/46)
+- Fix GH variables to pass the tests [`#45`](https://github.com/ruzickap/k8s-postgresql/pull/45)
+- Move to GitHub's Dependabot (version 2) [`#38`](https://github.com/ruzickap/k8s-postgresql/pull/38)
+- Use shell-linter in latest version [`#33`](https://github.com/ruzickap/k8s-postgresql/pull/33)
+- Bump @vuepress/plugin-back-to-top from 1.4.1 to 1.5.0 [`#30`](https://github.com/ruzickap/k8s-postgresql/pull/30)
+- Bump @vuepress/plugin-medium-zoom from 1.4.1 to 1.5.0 [`#28`](https://github.com/ruzickap/k8s-postgresql/pull/28)
+- Bump vuepress from 1.4.1 to 1.5.0 [`#29`](https://github.com/ruzickap/k8s-postgresql/pull/29)
+- Ignore CHANGELOG.md when doing markdown checks [`#31`](https://github.com/ruzickap/k8s-postgresql/pull/31)
+- CHANGELOG file update [`#27`](https://github.com/ruzickap/k8s-postgresql/pull/27)
+
 ## v0.0.1 (2020-05-11)
 
-- Bump @vuepress/plugin-back-to-top from 1.0.4 to 1.1.0 [`#3`](https://github.com/ruzickap/k8s-postgresql/pull/3)
-- Bump @vuepress/plugin-medium-zoom from 1.0.4 to 1.1.0 [`#2`](https://github.com/ruzickap/k8s-postgresql/pull/2)
-- Bump vuepress from 1.0.4 to 1.1.0 [`#1`](https://github.com/ruzickap/k8s-postgresql/pull/1)
 - Pin Terraform + modules version [`15ea800`](https://github.com/ruzickap/k8s-postgresql/commit/15ea8003419c75d19a43f331e8fb4faecc16094d)
 - Add .pre-commit-config.yaml and .release-it.yml to .gitignore [`faca781`](https://github.com/ruzickap/k8s-postgresql/commit/faca7819a5e2571779610eee3e93fea2af6fe257)
 - Update terrafrom GitHub Action + fix Terrafrom formatting [`3c165f0`](https://github.com/ruzickap/k8s-postgresql/commit/3c165f0136d0c50906173c1a4948339b886cd477)
@@ -36,7 +47,6 @@
 - Replace GITHUB_TOKEN by ACTIONS_DEPLOY_KEY [`2797797`](https://github.com/ruzickap/k8s-postgresql/commit/27977976204fd4a8f6b19075517676422883a7c5)
 - Fix domain [`169b0dd`](https://github.com/ruzickap/k8s-postgresql/commit/169b0dd9eea66442637862630535804cde204a23)
 - Adding GitHub Workflow instead of TravisCI [`37f6764`](https://github.com/ruzickap/k8s-postgresql/commit/37f67644b15c0f85c8c4d0ec1581aba5c917e3cf)
-- Merge branch 'master' of github.com:ruzickap/k8s-postgresql [`6048640`](https://github.com/ruzickap/k8s-postgresql/commit/60486408ed2e05109e92f636eeda48733ccc59f2)
 - Move to uksouth location, minor terrafrom code fixes [`4706f04`](https://github.com/ruzickap/k8s-postgresql/commit/4706f04ff68e645b76779bf80a2ac4437cd93eae)
 - Adding incomplete parts [`78dcc59`](https://github.com/ruzickap/k8s-postgresql/commit/78dcc59f5bbf68ea654d010567e451c9d36c977d)
 - Adding Patroni and Harbor [`bd96258`](https://github.com/ruzickap/k8s-postgresql/commit/bd962588923f1b11512e8b993627c18f3d4d0717)
