@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.1.1](https://github.com/ruzickap/k8s-postgresql/compare/v0.1.0...v0.1.1) (2021-12-20)
+
+- Improve GH Action files [`#93`](https://github.com/ruzickap/k8s-postgresql/pull/93)
+- Update npm [`#92`](https://github.com/ruzickap/k8s-postgresql/pull/92)
+- Fix linter issues [`#91`](https://github.com/ruzickap/k8s-postgresql/pull/91)
+- Use new terraform syntax [`#90`](https://github.com/ruzickap/k8s-postgresql/pull/90)
+- Upgrade GH Actions versions [`#89`](https://github.com/ruzickap/k8s-postgresql/pull/89)
+- npm update [`#88`](https://github.com/ruzickap/k8s-postgresql/pull/88)
+- Upgrade action-my-broken-link-checker [`#76`](https://github.com/ruzickap/k8s-postgresql/pull/76)
+- Fix My Broken Link Checker parameter [`#66`](https://github.com/ruzickap/k8s-postgresql/pull/66)
+- Update package-lock.json [`#65`](https://github.com/ruzickap/k8s-postgresql/pull/65)
+
 ## [v0.1.0](https://github.com/ruzickap/k8s-postgresql/compare/v0.0.1...v0.1.0) (2020-09-17)
 
 - Add new line to periodic-broken-link-checks.yml [`#63`](https://github.com/ruzickap/k8s-postgresql/pull/63)
@@ -12,7 +24,6 @@
 - Bump @vuepress/plugin-medium-zoom from 1.4.1 to 1.5.0 [`#28`](https://github.com/ruzickap/k8s-postgresql/pull/28)
 - Bump vuepress from 1.4.1 to 1.5.0 [`#29`](https://github.com/ruzickap/k8s-postgresql/pull/29)
 - Ignore CHANGELOG.md when doing markdown checks [`#31`](https://github.com/ruzickap/k8s-postgresql/pull/31)
-- CHANGELOG file update [`#27`](https://github.com/ruzickap/k8s-postgresql/pull/27)
 
 ## v0.0.1 (2020-05-11)
 
