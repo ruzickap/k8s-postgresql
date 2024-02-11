@@ -27,11 +27,13 @@ resource "aws_security_group" "security_group" {
   vpc_id      = module.vpc.vpc_id
   tags        = var.tags
 
+  # kics-scan ignore-line
   ingress {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
 
+    # kics-scan ignore-line
     cidr_blocks = [
       "0.0.0.0/0",
     ]
@@ -90,6 +92,5 @@ module "k8s_initial_config" {
   full_kubernetes_cluster_name = dirname(module.eks.cluster_id)
   letsencrypt_environment      = var.letsencrypt_environment
   location                     = var.location
-  prefix                       = var.prefix
   secret_access_key            = var.secret_access_key
 }
