@@ -49,13 +49,11 @@ export DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 
 [ ! -d .git ] && git clone --quiet https://github.com/ruzickap/k8s-postgresql && cd k8s-postgresql
 
-sed -n "/^\`\`\`bash.*/,/^\`\`\`$/p;/^-----$/p" docs/part-0{1..2}/README.md \
-| \
-sed \
-  -e 's/^```bash.*/\npe '"'"'/' \
-  -e 's/^```$/'"'"'/' \
-> README.sh
-
+sed -n "/^\`\`\`bash.*/,/^\`\`\`$/p;/^-----$/p" docs/part-0{1..2}/README.md |
+  sed \
+    -e 's/^```bash.*/\npe '"'"'/' \
+    -e 's/^```$/'"'"'/' \
+    > README.sh
 
 if [ "$#" -eq 0 ]; then
   # shellcheck disable=SC1091

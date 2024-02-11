@@ -1,6 +1,6 @@
 # Kubernetes + PostgreSQL
 
-[![Build Status](https://github.com/ruzickap/k8s-postgresql/workflows/vuepress-build-check-deploy/badge.svg)](https://github.com/ruzickap/k8s-postgresql)
+[![Build Status](https://github.com/ruzickap/k8s-postgresql/workflows/vuepress-build/badge.svg)](https://github.com/ruzickap/k8s-postgresql)
 
 * GitHub repository: [https://github.com/ruzickap/k8s-postgresql](https://github.com/ruzickap/k8s-postgresql)
 * Web Pages: [https://ruzickap.github.io/k8s-postgresql](https://ruzickap.github.io/k8s-postgresql)
