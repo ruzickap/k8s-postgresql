@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.0](https://github.com/ruzickap/k8s-postgresql/compare/v0.1.1...v0.2.0) (2024-03-27)
+
+
+### Features
+
+* **gh:** add default GitHub repo files ([#152](https://github.com/ruzickap/k8s-postgresql/issues/152)) ([cb981de](https://github.com/ruzickap/k8s-postgresql/commit/cb981dec78eea0cb4f6b20d7f02f41f839078c4a))
+* **gh:** add default GitHub repo files ([#153](https://github.com/ruzickap/k8s-postgresql/issues/153)) ([96c01bf](https://github.com/ruzickap/k8s-postgresql/commit/96c01bfc4098de3c4db364905aadc05be6d2b1bc))
+* **gha:** unify GHA - renovate, megalinter, markdown, and others ([#143](https://github.com/ruzickap/k8s-postgresql/issues/143)) ([c5c7cb5](https://github.com/ruzickap/k8s-postgresql/commit/c5c7cb51ccc7b6c2dd6c203b85b18b8b864fcf43))
+
+
+### Bug Fixes
+
+* **renovate:** skip terraform updates ([#151](https://github.com/ruzickap/k8s-postgresql/issues/151)) ([d4444f9](https://github.com/ruzickap/k8s-postgresql/commit/d4444f9ee83f567e798f96ea4f4005bc47007381))
+
 ## [v0.1.1](https://github.com/ruzickap/k8s-postgresql/compare/v0.1.0...v0.1.1) (2021-12-20)
 
 - Improve GH Action files [`#93`](https://github.com/ruzickap/k8s-postgresql/pull/93)
