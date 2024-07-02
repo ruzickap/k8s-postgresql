@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.0](https://github.com/ruzickap/k8s-postgresql/compare/v0.1.1...v0.2.0) (2024-07-02)
+
+
+### Features
+
+* **gh:** add default GitHub repo files ([#152](https://github.com/ruzickap/k8s-postgresql/issues/152)) ([cb981de](https://github.com/ruzickap/k8s-postgresql/commit/cb981dec78eea0cb4f6b20d7f02f41f839078c4a))
+* **gh:** add default GitHub repo files ([#153](https://github.com/ruzickap/k8s-postgresql/issues/153)) ([96c01bf](https://github.com/ruzickap/k8s-postgresql/commit/96c01bfc4098de3c4db364905aadc05be6d2b1bc))
+* **gha:** unify GHA - renovate, megalinter, markdown, and others ([#143](https://github.com/ruzickap/k8s-postgresql/issues/143)) ([c5c7cb5](https://github.com/ruzickap/k8s-postgresql/commit/c5c7cb51ccc7b6c2dd6c203b85b18b8b864fcf43))
+* **gha:** update gha + add ignore-unfixed to trivy ([#166](https://github.com/ruzickap/k8s-postgresql/issues/166)) ([c33583d](https://github.com/ruzickap/k8s-postgresql/commit/c33583daffcd6589079204ef1ecf763e737ecfe4))
+
+
+### Bug Fixes
+
+* add CVE-2024-4068 to .trivyignore.yaml ([#174](https://github.com/ruzickap/k8s-postgresql/issues/174)) ([e3884cb](https://github.com/ruzickap/k8s-postgresql/commit/e3884cbda1579c8b678acea567b4f4f957f43be1))
+* **doc:** fix k8s logo url ([#167](https://github.com/ruzickap/k8s-postgresql/issues/167)) ([a259c76](https://github.com/ruzickap/k8s-postgresql/commit/a259c76c4d0754125ccf064503241609783fec31))
+* **renovate:** skip terraform updates ([#151](https://github.com/ruzickap/k8s-postgresql/issues/151)) ([d4444f9](https://github.com/ruzickap/k8s-postgresql/commit/d4444f9ee83f567e798f96ea4f4005bc47007381))
+* **url:** exclude package-lock.json from URL checks ([#171](https://github.com/ruzickap/k8s-postgresql/issues/171)) ([429c605](https://github.com/ruzickap/k8s-postgresql/commit/429c60546f241174339a424a5c3e9983a5f41751))
+
 ## [v0.1.1](https://github.com/ruzickap/k8s-postgresql/compare/v0.1.0...v0.1.1) (2021-12-20)
 
 - Improve GH Action files [`#93`](https://github.com/ruzickap/k8s-postgresql/pull/93)
